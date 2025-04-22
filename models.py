@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # models.py
 from flask_sqlalchemy import SQLAlchemy
 
@@ -14,7 +14,6 @@ class Route(db.Model):
 # Flask ishlayotganini tekshirish uchun
 if __name__ == "__main__":
     print("db object initialized successfully")
-=======
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()  # faqat bitta joyda db ni yaratamiz
@@ -32,4 +31,3 @@ class BusSchedule(db.Model):
             'departure': self.departure,
             'arrival': self.arrival
         }
->>>>>>> 24c6d7d3d28ff89761d3d6d74b54eec3126132f0
