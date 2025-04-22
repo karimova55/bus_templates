@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Yo‘nalishlar</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="p-4">
+    <h2>Yo‘nalishlar ro‘yxati</h2>
+    <a href="{{ url_for('admin.add_route') }}" class="btn btn-success mb-3">+ Yo‘nalish qo‘shish</a>
+    <table class="table table-bordered">
+        <tr>
+            <th>ID</th><th>Nomi</th><th>Tavsif</th><th>Amallar</th>
+        </tr>
+        {% for route in routes %}
+        <tr>
+            <td>{{ route.id }}</td>
+            <td>{{ route.name }}</td>
+            <td>{{ route.description }}</td>
+            <td>
+                <a href="{{ url_for('admin.edit_route', id=route.id) }}" class="btn btn-warning btn-sm">Tahrirlash</a>
+                <form action="{{ url_for('admin.delete_route', id=route.id) }}" method="post" style="display:inline;">
+                    <button class="btn btn-danger btn-sm">O‘chirish</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
