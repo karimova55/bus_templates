@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h2>Yangi yo‘nalish qo‘shish</h2>
+<form method="post">
+    <div class="mb-3">
+        <label for="number" class="form-label">Yo‘nalish raqami</label>
+        <input type="text" name="number" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="start_point" class="form-label">Boshlanish manzili</label>
+        <input type="text" name="start_point" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="end_point" class="form-label">Yakun manzili</label>
+        <input type="text" name="end_point" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Saqlash</button>
+</form>
+{% endblock %}
