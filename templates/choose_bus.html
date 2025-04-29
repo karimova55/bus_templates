@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="card p-4 shadow mb-5">
+    <h2 class="mb-4">🚌 Avtobus tanlang</h2>
+
+    <form method="post">
+        <div class="mb-3">
+            <label for="bus_number" class="form-label">Avtobus raqami:</label>
+            <select name="bus_number" id="bus_number" class="form-select" required>
+                {% for route in routes %}
+                <option value="{{ route[0] }}">{{ route[1] }} - {{ route[2] }} → {{ route[3] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success">Tanlash</button>
+    </form>
+
+    {% if estimated_time %}
+    <div class="alert alert-info mt-4">
+        <h5>🚀 Sizning safaringiz taxminan <strong>{{ estimated_time }}</strong> daqiqa davom etadi.</h5>
+    </div>
+    {% endif %}
+
+    <a href="{{ url_for('index') }}" class="btn btn-secondary mt-4">⬅️ Bosh sahifaga</a>
+</div>
+{% endblock %}

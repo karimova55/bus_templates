@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">🚍 Avtobus Haqida Fikr Qoldiring</h2>
+
+    <form method="POST" action="{{ url_for('submit_feedback') }}">
+        <div class="mb-3">
+            <label for="satisfaction" class="form-label">Avtobusga Yetib Borganingizdan Keyin His-tuyg‘ularingizni Bildiring:</label>
+            <select class="form-select" name="satisfaction" required>
+                <option value="Happy">Xursandman</option>
+                <option value="Unhappy">Noroziyman</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="driver_rating" class="form-label">Haydovchining Xizmatini Baholang:</label>
+            <select class="form-select" name="driver_rating" required>
+                <option value="Good">Yaxshi</option>
+                <option value="Average">O‘rtacha</option>
+                <option value="Bad">Yomon</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="bus_condition" class="form-label">Avtobus Ichidagi Holatni Baholang:</label>
+            <select class="form-select" name="bus_condition" required>
+                <option value="Clean">Toza</option>
+                <option value="Average">O‘rtacha</option>
+                <option value="Dirty">Iflos</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="comments" class="form-label">Qo‘shimcha Fikrlaringiz:</label>
+            <textarea class="form-control" name="comments" rows="4" placeholder="Agar istasangiz, qo‘shimcha fikrlaringizni yozishingiz mumkin."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Fikrni Jo‘natish</button>
+    </form>
+
+    <a href="{{ url_for('index') }}" class="btn btn-secondary mt-3">⬅️ Bosh Sahifaga</a>
+</div>
+{% endblock %}
