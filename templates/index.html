@@ -65,3 +65,94 @@
     </table>
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Bus Project</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 24px;
+            color: #333;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input[type="text"], select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        hr {
+            margin: 30px 0;
+            border: none;
+            border-top: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Haydovchi muomalasi haqida fikr</h1>
+        <form action="/feedback" method="POST">
+            <input type="text" name="driver_id" placeholder="Haydovchi ID" required>
+            <textarea name="comment" rows="4" placeholder="Fikr yozing..." required></textarea>
+            <button type="submit">Yuborish</button>
+        </form>
+
+        <hr>
+
+        <h1>Taklif va e’tirozlar</h1>
+        <form action="/suggestion" method="POST">
+            <textarea name="text" rows="4" placeholder="Taklif yoki e’tiroz yozing..." required></textarea>
+            <button type="submit">Yuborish</button>
+        </form>
+
+        <hr>
+
+        <h1>Sevimli avtobus yo‘nalishi</h1>
+        <form action="/favorite" method="POST">
+            <input type="hidden" name="user_id" value="1"> <!-- vaqtincha foydalanuvchi ID -->
+            <select name="route_id" required>
+                <option value="">Yo‘nalishni tanlang</option>
+                <option value="101">101 - Chilonzor</option>
+                <option value="102">102 - Yunusobod</option>
+                <option value="103">103 - Beruniy</option>
+            </select>
+            <button type="submit">Belgilash</button>
+        </form>
+    </div>
+</body>
+</html>

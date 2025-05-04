@@ -199,5 +199,10 @@ def stops(route_id):
     conn.close()
     return render_template('stops.html', stops=stops, route_id=route_id)
 
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+
 if __name__=='__main__': 
     app.run(debug=True)
