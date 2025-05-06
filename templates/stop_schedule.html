@@ -1,51 +1,26 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Bekat va vaqtlar</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="container mt-4">
-    <h2>Bekatlar va kelish vaqti</h2>
-    <form method="post" class="row g-3">
-        <div class="col-md-6">
-            <label class="form-label">Bekatni tanlang:</label>
-            <select name="stop_id" class="form-control" required>
-                {% for stop in stops %}
-                    <option value="{{ stop[0] }}">{{ stop[1] }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="col-md-4">
-            <label class="form-label">Kelish vaqti:</label>
-            <input type="time" name="arrival_time" class="form-control" required>
-        </div>
-        <div class="col-md-2 d-flex align-items-end">
-            <button type="submit" class="btn btn-success">Qo‘shish</button>
-        </div>
-    </form>
+{% extends 'layout.html' %}
 
-    <hr>
+{% block content %}
+<div class="card shadow p-4 mb-5 bg-white rounded">
+    <h2 class="mb-4">🕑 Yo‘nalish: {{ route_number }}</h2>
 
-    <h4>Jadval:</h4>
-    <table class="table table-bordered">
-        <thead>
+    <table class="table table-striped table-bordered">
+        <thead class="table-light">
             <tr>
-                <th>Bekat</th>
+                <th>Bekat nomi</th>
                 <th>Kelish vaqti</th>
             </tr>
         </thead>
         <tbody>
-            {% for stop in stops %}
-                {% if stop[2] %}
-                    <tr>
-                        <td>{{ stop[1] }}</td>
-                        <td>{{ stop[2] }}</td>
-                    </tr>
-                {% endif %}
+            {% for stop, time in schedule %}
+            <tr>
+                <td>{{ stop }}</td>
+                <td>{{ time }}</td>
+            </tr>
             {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ url_for('index') }}" class="btn btn-secondary mt-3">Orqaga</a>
-</body>
-</html>
+    <a href="{{ url_for('index') }}" class="btn btn-secondary mt-3">⬅️ Bosh sahifaga qaytish</a>
+</div>
+{% endblock %}

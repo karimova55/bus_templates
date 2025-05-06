@@ -1,11 +1,6 @@
-number,start_point,end_point
-1,Chorbog',Gijduvon
-2,Navoiy ko'chasi,Kogon
-3,Temiryo‘l vokzali,Shifoxona
-4,Chorrahadan,Avtoservis
-5,BuxDU,Afrosiyob
-6,Ko‘hna ark,Qorako‘l bozori
-7,Chashmai Ayub,Paxtakor ko‘chasi
-8,Zargarlik,Do‘stlik mahallasi
-9,Yangi bozor,O‘rta asrlar minorasi
-10,Marvarid,Navro‘z ko‘chasi
+routes = [
+    (1, "1", "Karvon Bozor", "Minor masjidi"),
+    (2, "2", "Ark Qal'asi", "Gijduvon yo‘li"),
+    (3, "3", "Buxoro Vokzal", "Bahouddin Naqshband"),
+    (4, "4", "Chor Minor", "Namozgoh maydoni")
+]

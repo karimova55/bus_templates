@@ -1,0 +1,10 @@
+<h2>Qidiruv natijalari:</h2>
+{% if routes %}
+    <ul>
+        {% for route in routes %}
+            <li>{{ route.name }} - {{ route.start_point }} - {{ route.end_point }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Qidiruv natijalari topilmadi.</p>
+{% endif %}

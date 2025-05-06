@@ -1,0 +1,128 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">🚌 Avtobuslarni Real-Time Kuzatish</h2>
+
+    <!-- Avtobuslar va Bekatlar jadvali -->
+    <div id="buses" class="row"></div>
+
+    <!-- "Xarita" ko‘rinishi -->
+    <h4 class="mt-5">🗺️ Avtobuslar xaritasi</h4>
+    <div id="map" style="height: 400px; background: #eef4f7; border: 1px solid #ccc; position: relative; border-radius: 10px;"></div>
+
+    <a href="{{ url_for('index') }}" class="btn btn-secondary mt-4">⬅️ Bosh sahifaga qaytish</a>
+</div>
+
+<script>
+// Simulyatsiya uchun: static bekatlar
+const stops = [
+    {name: "Karvon Bozor", x: 50, y: 100},
+    {name: "Markaziy Apteka", x: 150, y: 80},
+    {name: "Moxi Xossa", x: 250, y: 150},
+    {name: "Gijduvon Darvoza", x: 350, y: 200},
+    {name: "Ark Qal'a", x: 450, y: 180}
+];
+
+// Avtobuslarni yuklash
+function loadBuses() {
+    fetch('{{ url_for("tracking_data") }}')
+        .then(response => response.json())
+        .then(data => {
+            let busesDiv = document.getElementById('buses');
+            let mapDiv = document.getElementById('map');
+            busesDiv.innerHTML = '';
+            mapDiv.innerHTML = '';
+
+            // Bekatlarni chizish
+            stops.forEach(stop => {
+                let stopMarker = document.createElement('div');
+                stopMarker.style.position = 'absolute';
+                stopMarker.style.top = stop.y + 'px';
+                stopMarker.style.left = stop.x + 'px';
+                stopMarker.style.width = '15px';
+                stopMarker.style.height = '15px';
+                stopMarker.style.backgroundColor = 'blue';
+                stopMarker.style.borderRadius = '50%';
+                stopMarker.title = stop.name;
+                mapDiv.appendChild(stopMarker);
+
+                let label = document.createElement('small');
+                label.style.position = 'absolute';
+                label.style.top = (stop.y + 20) + 'px';
+                label.style.left = stop.x + 'px';
+                label.innerText = stop.name;
+                mapDiv.appendChild(label);
+            });
+
+            // Avtobuslarni ko‘rsatish va harakatlantirish
+            data.forEach((bus, index) => {
+                // Jadvaldagi karta
+                let arrival_time = new Date(bus.arrival_time);
+                let current_time = new Date();
+                let diff_time = Math.abs(arrival_time - current_time) / 1000 / 60; // minutes
+
+                let card = `
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow p-3">
+                        <h5 class="card-title">Yo‘nalish №${bus.number}</h5>
+                        <p><strong>Hozirgi bekat:</strong> ${bus.current_stop}</p>
+                        <p><strong>Kelish vaqti:</strong> ${bus.arrival_time}</p>
+                        <p><strong>Status:</strong> 
+                            ${bus.traffic_status == 'Tirbandlik' 
+                                ? '<span class="badge bg-danger">Tirbandlik</span>' 
+                                : '<span class="badge bg-success">Normal</span>'}
+                        </p>
+                        <p><em>${bus.start_point} ➡️ ${bus.end_point}</em></p>
+                        <p><strong>Bekatga yetish vaqti:</strong> ${Math.round(diff_time)} minut</p>
+                    </div>
+                </div>`;
+                busesDiv.innerHTML += card;
+
+                // Avtobus xaritadagi pozitsiya
+                let busMarker = document.createElement('div');
+                busMarker.style.position = 'absolute';
+                busMarker.style.top = stops[index % stops.length].y + 'px';
+                busMarker.style.left = stops[index % stops.length].x + 'px';
+                busMarker.style.fontSize = '24px';
+                busMarker.style.transition = 'all 2s ease';
+                busMarker.innerHTML = '🚌 №' + bus.number;
+                busMarker.id = 'bus-' + bus.number;
+                mapDiv.appendChild(busMarker);
+
+                // Tirbandlikni simulyatsiya qilish
+                let speed = bus.traffic_status === 'Tirbandlik' ? 2000 : 500; // Tirbandlikda sekinlashish
+                setInterval(() => {
+                    let nextStop = stops[Math.floor(Math.random() * stops.length)];
+                    busMarker.style.top = nextStop.y + 'px';
+                    busMarker.style.left = nextStop.x + 'px';
+                }, speed);
+            });
+
+            // Bekatlar orasiga chiziq chizish
+            for (let i = 0; i < stops.length - 1; i++) {
+                let line = document.createElement('div');
+                line.style.position = 'absolute';
+                line.style.background = 'gray';
+                line.style.height = '2px';
+                line.style.width = Math.sqrt(
+                    Math.pow(stops[i + 1].x - stops[i].x, 2) + 
+                    Math.pow(stops[i + 1].y - stops[i].y, 2)
+                ) + 'px';
+                line.style.top = stops[i].y + 'px';
+                line.style.left = stops[i].x + 'px';
+                line.style.transformOrigin = 'top left';
+                let angle = Math.atan2(stops[i + 1].y - stops[i].y, stops[i + 1].x - stops[i].x) * 180 / Math.PI;
+                line.style.transform = 'rotate(' + angle + 'deg)';
+                mapDiv.appendChild(line);
+            }
+        });
+}
+
+// Dastlab yuklash
+loadBuses();
+
+// Har 30 soniyada yangilash
+setInterval(loadBuses, 30000);
+</script>
+{% endblock %}

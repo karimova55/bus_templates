@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="uz">
 <head>
@@ -156,3 +157,13 @@
     </div>
 </body>
 </html>
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="text-center mt-5">
+    <h1>Xush kelibsiz!</h1>
+    <p class="lead">Buxoro shahri bo‘ylab avtobus yo‘nalishlari va vaqtlarini ko‘rish uchun saytimizdan foydalaning.</p>
+    <a href="{{ url_for('search') }}" class="btn btn-primary btn-lg mt-4">Yo‘nalish qidirish</a>
+</div>
+{% endblock %}
+

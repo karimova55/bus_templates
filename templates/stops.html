@@ -1,37 +1,39 @@
 <!-- templates/stops.html -->
-<!DOCTYPE html>
-<html lang="uz">
-<head>
-    <meta charset="UTF-8">
-    <title>Bekatlar ro‘yxati</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="container mt-5">
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container mt-5">
     <h2>Bekatlar ro‘yxati</h2>
 
-    <a href="{{ url_for('add_stop', route_id=route_id) }}" class="btn btn-success mb-3">Yangi bekat qo‘shish</a>
+    <a href="{{ url_for('add_stop', route_id=route_id) }}" class="btn btn-success mb-3">
+        <i class="bi bi-plus-circle"></i> Yangi bekat qo‘shish
+    </a>
 
     {% if stops %}
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Bekat nomi</th>
-                    <th>Ketma-ketligi</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for stop in stops %}
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Bekat nomi</th>
+                        <th>Ketma-ketlik</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stop in stops %}
                     <tr>
                         <td>{{ loop.index }}</td>
                         <td>{{ stop[2] }}</td>
                         <td>{{ stop[3] }}</td>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     {% else %}
-        <p>Hozircha hech qanday bekat yo‘q.</p>
+        <div class="alert alert-info" role="alert">
+            Hozircha hech qanday bekat mavjud emas.
+        </div>
     {% endif %}
-</body>
-</html>
+</div>
+{% endblock %}

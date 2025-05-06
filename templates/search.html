@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="card shadow p-4 mb-5 bg-white rounded">
+    <h2 class="mb-4">🔍 Manzil bo‘yicha qidirish</h2>
+
+    <form method="post" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="destination" class="form-control" placeholder="Masalan: Karvon Bozor" required>
+            <button type="submit" class="btn btn-primary">Qidirish</button>
+        </div>
+    </form>
+
+    {% if results %}
+    <h5 class="mb-3">Natijalar:</h5>
+    <table class="table table-bordered table-hover">
+        <thead class="table-light">
+            <tr>
+                <th>Yo‘nalish raqami</th>
+                <th>Bekat</th>
+                <th>Kelish vaqti</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in results %}
+            <tr>
+                <td><span class="badge bg-warning text-dark">{{ row[0] }}</span></td>
+                <td>{{ row[1] }}</td>
+                <td>{{ row[2] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% elif request.method == 'POST' %}
+    <p class="text-danger">🔴 Siz kiritgan manzil bo‘yicha avtobus topilmadi. Iltimos, manzilni to‘g‘ri kiriting yoki boshqa manzilni sinab ko‘ring.</p>
+    {% endif %}
+
+    <a href="{{ url_for('index') }}" class="btn btn-secondary mt-3">⬅️ Orqaga</a>
+</div>
+{% endblock %}

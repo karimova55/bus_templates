@@ -1,20 +1,21 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<h2>Yo‘nalishni tahrirlash</h2>
-<form method="post">
+<h2 class="mb-4">Yo‘nalishni tahrirlash</h2>
+<form method="post" novalidate>
     <div class="mb-3">
         <label for="number" class="form-label">Yo‘nalish raqami</label>
-        <input type="text" name="number" class="form-control" value="{{ route[1] }}" required>
+        <input type="text" id="number" name="number" class="form-control" value="{{ route[1] }}" required autofocus>
     </div>
     <div class="mb-3">
         <label for="start_point" class="form-label">Boshlanish manzili</label>
-        <input type="text" name="start_point" class="form-control" value="{{ route[2] }}" required>
+        <input type="text" id="start_point" name="start_point" class="form-control" value="{{ route[2] }}" required>
     </div>
     <div class="mb-3">
         <label for="end_point" class="form-label">Yakun manzili</label>
-        <input type="text" name="end_point" class="form-control" value="{{ route[3] }}" required>
+        <input type="text" id="end_point" name="end_point" class="form-control" value="{{ route[3] }}" required>
     </div>
     <button type="submit" class="btn btn-primary">Saqlash</button>
+    <a href="{{ url_for('index') }}" class="btn btn-secondary ms-2">Bekor qilish</a>
 </form>
 {% endblock %}
